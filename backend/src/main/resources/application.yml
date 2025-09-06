@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    com.shoplite: DEBUG
+    org.springframework.web: DEBUG
+
+# JWT 설정
+jwt:
+  secret: mySecretKeyForShopLiteApplicationThatShouldBeLongEnoughForSecurity
+  expiration: 86400000 # 24시간 (밀리초)
+
+# 토스페이먼츠 설정
+toss:
+  payments:
+    client-key: test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq # 테스트 클라이언트 키
+    secret-key: test_sk_zXLkKEypNArWmo50nX3lmeaxYG5R # 테스트 시크릿 키
+    api-url: https://api.tosspayments.com/v1/payments
+    success-url: http://localhost:3000/payment/success
+    fail-url: http://localhost:3000/payment/fail
+
+# Swagger/OpenAPI 설정
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    display-request-duration: true
+    show-extensions: true
+    show-common-extensions: true
+  packages-to-scan: com.shoplite.controller
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
