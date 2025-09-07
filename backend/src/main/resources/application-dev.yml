@@ -29,3 +29,4 @@ info:
     database: SQLite
     description: 로컬 개발환경 - SQLite 파일 기반 데이터베이스 사용
 
+

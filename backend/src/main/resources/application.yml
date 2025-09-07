@@ -13,6 +13,13 @@ spring:
       hibernate:
         format_sql: true
 
+  # Spring Boot 파일 업로드 설정
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+      enabled: true
+
 logging:
   level:
     com.shoplite: DEBUG
@@ -37,7 +44,8 @@ springdoc:
   api-docs:
     path: /api-docs
   swagger-ui:
-    path: /swagger-ui.html
+    path: /api
+    url: /api-docs
     tags-sorter: alpha
     operations-sorter: alpha
     display-request-duration: true
@@ -46,3 +54,7 @@ springdoc:
   packages-to-scan: com.shoplite.controller
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
+
+# 파일 업로드 설정
+file:
+  upload-dir: ./uploads

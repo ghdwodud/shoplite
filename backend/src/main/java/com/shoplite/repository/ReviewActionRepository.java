@@ -49,3 +49,4 @@ public interface ReviewActionRepository extends JpaRepository<ReviewAction, Long
     List<Object[]> findReviewsWithManyReports(@Param("threshold") Long threshold);
 }
 
+
