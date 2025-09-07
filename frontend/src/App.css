@@ -74,11 +74,20 @@
   padding: 15px;
 }
 
+.product-name-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-name-link:hover .product-name {
+  color: #007bff;
+}
 .product-name {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 8px;
   color: #333;
+  transition: color 0.2s ease;
 }
 
 .product-description {
@@ -94,6 +103,17 @@
   margin-bottom: 10px;
 }
 
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.review-count {
+  font-size: 0.8rem;
+  color: #666;
+}
 .product-stock {
   color: #28a745;
   font-size: 0.9rem;

@@ -18,6 +18,10 @@ public class ProductDTO {
     private Long categoryId;
     private String categoryName;
     
+    // Review 정보
+    private Double averageRating;
+    private Integer reviewCount;
+
     // 기본 생성자
     public ProductDTO() {}
     
@@ -37,6 +41,9 @@ public class ProductDTO {
             this.categoryId = product.getCategory().getId();
             this.categoryName = product.getCategory().getName();
         }
+
+        this.averageRating = product.getAverageRating();
+        this.reviewCount = product.getReviewCount();
     }
     
     // Getters and Setters
@@ -126,6 +133,22 @@ public class ProductDTO {
     
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
     }
 }
 

@@ -1,0 +1,54 @@
+# 운영환경 설정 (PostgreSQL)
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/shoplite}
+    username: ${DATABASE_USERNAME:shoplite}
+    password: ${DATABASE_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+    
+    # 커넥션 풀 설정
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 600000
+      connection-timeout: 20000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate  # 운영환경에서는 validate 사용
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          time_zone: UTC
+    show-sql: false  # 운영환경에서는 SQL 로그 비활성화
+
+logging:
+  level:
+    com.shoplite: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
+    root: WARN
+  
+  # 로그 파일 설정
+  file:
+    name: ./logs/shoplite.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 운영환경 메시지
+info:
+  app:
+    name: ShopLite Backend
+    environment: Production
+    database: PostgreSQL
+    description: 운영환경 - PostgreSQL 데이터베이스 사용
+
+# 보안 설정
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+

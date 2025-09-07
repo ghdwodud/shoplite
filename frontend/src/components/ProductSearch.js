@@ -249,3 +249,4 @@ const ProductSearch = ({ onSearch, filters, onFiltersChange }) => {
 export default ProductSearch;
 
 
+

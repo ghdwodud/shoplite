@@ -50,11 +50,12 @@ public class ProductController {
     })
     @SecurityRequirements() // 인증 불필요
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(
+    public ResponseEntity<ProductDTO> getProductById(
             @Parameter(description = "상품 ID", required = true, example = "1")
             @PathVariable Long id) {
         Product product = productService.getProductById(id);
-        return ResponseEntity.ok(product);
+        ProductDTO productDTO = new ProductDTO(product);
+        return ResponseEntity.ok(productDTO);
     }
 
     @Operation(summary = "새 상품 등록", description = "새로운 상품을 등록합니다.")

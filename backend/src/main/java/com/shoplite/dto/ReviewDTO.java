@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Schema(description = "리뷰 정보 DTO")
 public class ReviewDTO {
@@ -40,6 +41,32 @@ public class ReviewDTO {
     @Schema(description = "리뷰 수정일")
     private LocalDateTime updatedAt;
     
+    // 고도화된 필드들
+    @Schema(description = "리뷰 이미지 URL 목록")
+    private List<String> imageUrls;
+
+    @Schema(description = "좋아요 수", example = "15")
+    private Integer likeCount = 0;
+
+    @Schema(description = "신고 수", example = "2")
+    private Integer reportCount = 0;
+
+    @Schema(description = "도움이 된 점수", example = "13")
+    private Integer helpfulnessScore = 0;
+
+    @Schema(description = "구매 확인 여부", example = "true")
+    private Boolean verifiedPurchase = false;
+
+    @Schema(description = "리뷰 상태", example = "ACTIVE")
+    private String status;
+
+    // 현재 사용자의 액션 상태
+    @Schema(description = "현재 사용자가 좋아요 했는지", example = "false")
+    private Boolean userLiked = false;
+
+    @Schema(description = "현재 사용자가 신고 했는지", example = "false")
+    private Boolean userReported = false;
+
     // 기본 생성자
     public ReviewDTO() {}
     
@@ -128,5 +155,69 @@ public class ReviewDTO {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Integer getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(Integer reportCount) {
+        this.reportCount = reportCount;
+    }
+
+    public Integer getHelpfulnessScore() {
+        return helpfulnessScore;
+    }
+
+    public void setHelpfulnessScore(Integer helpfulnessScore) {
+        this.helpfulnessScore = helpfulnessScore;
+    }
+
+    public Boolean getVerifiedPurchase() {
+        return verifiedPurchase;
+    }
+
+    public void setVerifiedPurchase(Boolean verifiedPurchase) {
+        this.verifiedPurchase = verifiedPurchase;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Boolean getUserLiked() {
+        return userLiked;
+    }
+
+    public void setUserLiked(Boolean userLiked) {
+        this.userLiked = userLiked;
+    }
+
+    public Boolean getUserReported() {
+        return userReported;
+    }
+
+    public void setUserReported(Boolean userReported) {
+        this.userReported = userReported;
     }
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import ProductList from './components/ProductList';
+import ProductDetail from './components/ProductDetail';
 import ProductForm from './components/ProductForm';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -48,6 +49,7 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<ProductList user={user} />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<Signup onLogin={handleLogin} />} />
             <Route path="/cart" element={<Cart user={user} />} />

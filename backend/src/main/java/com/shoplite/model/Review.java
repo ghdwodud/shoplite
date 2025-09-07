@@ -46,6 +46,37 @@ public class Review {
     @Schema(description = "리뷰 수정일", accessMode = Schema.AccessMode.READ_ONLY)
     private LocalDateTime updatedAt;
     
+    // 리뷰 이미지 URL들 (JSON 배열로 저장)
+    @Column(name = "image_urls", columnDefinition = "TEXT")
+    @Schema(description = "리뷰 이미지 URL 목록 (JSON 배열)")
+    private String imageUrls;
+
+    // 좋아요 수
+    @Column(name = "like_count")
+    @Schema(description = "좋아요 수", example = "15")
+    private Integer likeCount = 0;
+
+    // 신고 수
+    @Column(name = "report_count")
+    @Schema(description = "신고 수", example = "0")
+    private Integer reportCount = 0;
+
+    // 구매 확인 여부
+    @Column(name = "is_verified_purchase")
+    @Schema(description = "구매 확인 여부", example = "true")
+    private Boolean isVerifiedPurchase = false;
+
+    // 리뷰 상태 (활성, 숨김, 삭제)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    @Schema(description = "리뷰 상태")
+    private ReviewStatus status = ReviewStatus.ACTIVE;
+
+    // 도움이 된 점수 (좋아요 - 신고)
+    @Column(name = "helpfulness_score")
+    @Schema(description = "도움이 된 점수", example = "12")
+    private Integer helpfulnessScore = 0;
+
     // 기본 생성자
     public Review() {}
     
@@ -125,5 +156,68 @@ public class Review {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+        updateHelpfulnessScore();
+    }
+
+    public Integer getReportCount() {
+        return reportCount;
+    }
+
+    public void setReportCount(Integer reportCount) {
+        this.reportCount = reportCount;
+        updateHelpfulnessScore();
+    }
+
+    public Boolean getIsVerifiedPurchase() {
+        return isVerifiedPurchase;
+    }
+
+    public void setIsVerifiedPurchase(Boolean isVerifiedPurchase) {
+        this.isVerifiedPurchase = isVerifiedPurchase;
+    }
+
+    public ReviewStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReviewStatus status) {
+        this.status = status;
+    }
+
+    public Integer getHelpfulnessScore() {
+        return helpfulnessScore;
+    }
+
+    public void setHelpfulnessScore(Integer helpfulnessScore) {
+        this.helpfulnessScore = helpfulnessScore;
+    }
+
+    // 도움이 된 점수 자동 계산
+    private void updateHelpfulnessScore() {
+        this.helpfulnessScore = (this.likeCount != null ? this.likeCount : 0) -
+                (this.reportCount != null ? this.reportCount : 0);
+    }
+
+    // 리뷰 상태 열거형
+    public enum ReviewStatus {
+        ACTIVE, // 활성
+        HIDDEN, // 숨김 (신고 많음)
+        DELETED // 삭제됨
     }
 }

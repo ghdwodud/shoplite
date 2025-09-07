@@ -1,0 +1,131 @@
+.product-reviews {
+    margin: 40px 0;
+}
+
+.product-reviews-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.user-review-section {
+    margin: 30px 0;
+}
+
+.review-action-area {
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.existing-review-info h4,
+.no-review-info h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.my-review-preview {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.my-review-rating {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.my-review-comment {
+    color: #555;
+    line-height: 1.5;
+    margin: 10px 0;
+    font-style: italic;
+}
+
+.my-review-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+
+.no-review-info p {
+    color: #666;
+    margin: 10px 0 20px 0;
+    font-size: 14px;
+}
+
+.btn-write-review,
+.btn-edit-review {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-write-review:hover,
+.btn-edit-review:hover {
+    background: #0056b3;
+}
+
+.btn-edit-review {
+    background: #28a745;
+}
+
+.btn-edit-review:hover {
+    background: #1e7e34;
+}
+
+.login-prompt {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.login-prompt p {
+    margin: 0;
+    color: #856404;
+}
+
+.login-prompt a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .product-reviews {
+        margin: 20px 0;
+    }
+    
+    .review-action-area {
+        padding: 15px;
+    }
+    
+    .my-review-preview {
+        padding: 12px;
+    }
+    
+    .btn-write-review,
+    .btn-edit-review {
+        width: 100%;
+        padding: 12px;
+    }
+}
+

@@ -28,6 +28,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     
     @Query("SELECT COUNT(o) FROM Order o WHERE o.createdAt >= :date")
     Long countOrdersAfterDate(@Param("date") LocalDateTime date);
+
+    // 구매 확인을 위한 메서드 추가
+    @Query("SELECT CASE WHEN COUNT(o) > 0 THEN true ELSE false END FROM Order o JOIN o.orderItems oi WHERE o.user.id = :userId AND oi.product.id = :productId AND o.status = 'COMPLETED'")
+    boolean existsByUserIdAndOrderItemsProductId(@Param("userId") Long userId, @Param("productId") Long productId);
 }
 
 

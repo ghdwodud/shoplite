@@ -42,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             path.startsWith("/api/auth") ||
             path.startsWith("/api/products") ||
             path.startsWith("/api/categories") ||
+                (path.startsWith("/api/reviews") && request.getMethod().equals("GET")) ||
             path.startsWith("/h2-console")) {
             filterChain.doFilter(request, response);
             return;
@@ -73,6 +74,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    public static String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);

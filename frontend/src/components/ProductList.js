@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProductService from '../services/ProductService';
 import CartService from '../services/CartService';
 import ProductSearch from './ProductSearch';
+import StarRating from './StarRating';
 
 const ProductList = ({ user }) => {
   const [products, setProducts] = useState([]);
@@ -126,9 +127,21 @@ const ProductList = ({ user }) => {
                 />
               )}
               <div className="product-info">
-                <h3 className="product-name">{product.name}</h3>
+                <Link to={`/product/${product.id}`} className="product-name-link">
+                  <h3 className="product-name">{product.name}</h3>
+                </Link>
                 <p className="product-description">{product.description}</p>
                 <div className="product-price">₩{product.price?.toLocaleString()}</div>
+                <div className="product-rating">
+                  <StarRating 
+                    rating={product.averageRating || 0} 
+                    size="small" 
+                    showText={true} 
+                  />
+                  {product.reviewCount > 0 && (
+                    <span className="review-count">({product.reviewCount}개 리뷰)</span>
+                  )}
+                </div>
                 <div className="product-stock">
                   재고: {product.stockQuantity}개
                 </div>

@@ -72,6 +72,66 @@ class ReviewService {
             throw error.response?.data || { message: '내 리뷰 조회에 실패했습니다.' };
         }
     }
+
+    // === 고도화된 리뷰 기능 ===
+
+    // 이미지 포함 리뷰 작성
+    async createReviewWithImages(productId, reviewData) {
+        try {
+            const response = await ApiClient.post(`/reviews/enhanced/products/${productId}`, reviewData);
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: '리뷰 작성에 실패했습니다.' };
+        }
+    }
+
+    // 리뷰 좋아요
+    async likeReview(reviewId) {
+        try {
+            const response = await ApiClient.post(`/reviews/enhanced/${reviewId}/like`);
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: '좋아요 처리에 실패했습니다.' };
+        }
+    }
+
+    // 리뷰 좋아요 취소
+    async unlikeReview(reviewId) {
+        try {
+            const response = await ApiClient.delete(`/reviews/enhanced/${reviewId}/like`);
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: '좋아요 취소에 실패했습니다.' };
+        }
+    }
+
+    // 리뷰 신고
+    async reportReview(reviewId, reason) {
+        try {
+            const response = await ApiClient.post(`/reviews/enhanced/${reviewId}/report`, { reason });
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: '신고 처리에 실패했습니다.' };
+        }
+    }
+
+    // 고급 필터링 리뷰 조회
+    async getFilteredReviews(productId, filters = {}, page = 0, size = 10) {
+        try {
+            const params = {
+                page,
+                size,
+                ...filters // rating, verifiedOnly, withImages, sortBy
+            };
+            
+            const response = await ApiClient.get(`/reviews/enhanced/products/${productId}/filtered`, {
+                params
+            });
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || { message: '리뷰 목록 조회에 실패했습니다.' };
+        }
+    }
 }
 
 export default new ReviewService();

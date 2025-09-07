@@ -5,6 +5,7 @@ import com.shoplite.dto.ReviewRequest;
 import com.shoplite.dto.ReviewSummaryDTO;
 import com.shoplite.security.JwtAuthenticationFilter;
 import com.shoplite.service.ReviewService;
+import com.shoplite.service.UserService;
 import com.shoplite.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,6 +33,9 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
     
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private JwtUtil jwtUtil;
     
@@ -242,8 +246,17 @@ public class ReviewController {
             throw new RuntimeException("유효하지 않은 토큰입니다.");
         }
         
-        // 실제로는 UserService를 통해 username으로 userId를 조회해야 함
-        // 여기서는 간단히 토큰에서 userId를 직접 추출하는 방식으로 구현
-        return jwtUtil.getUserIdFromToken(token);
+        // 토큰에서 userId 직접 추출 시도
+        Long userId = jwtUtil.getUserIdFromToken(token);
+        if (userId != null) {
+            return userId;
+        }
+
+        // userId가 없으면 username으로 사용자 조회
+        try {
+            return userService.getUserByEmail(username).getId();
+        } catch (Exception e) {
+            throw new RuntimeException("사용자를 찾을 수 없습니다: " + username);
+        }
     }
 }
