@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import CartService from '../services/CartService';
+import WishlistService from '../services/WishlistService';
 
 const Header = ({ user, onLogout }) => {
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       fetchCartItemCount();
+      fetchWishlistCount();
     }
   }, [user]);
 
@@ -19,6 +22,15 @@ const Header = ({ user, onLogout }) => {
       setCartItemCount(count);
     } catch (error) {
       console.error('Error fetching cart item count:', error);
+    }
+  };
+
+  const fetchWishlistCount = async () => {
+    try {
+      const response = await WishlistService.getUserWishlistCount(user.id);
+      setWishlistCount(response.data.count);
+    } catch (error) {
+      console.error('Error fetching wishlist count:', error);
     }
   };
 
@@ -61,6 +73,9 @@ const Header = ({ user, onLogout }) => {
               <>
                 <Link to="/cart">
                   장바구니 {cartItemCount > 0 && `(${cartItemCount})`}
+                </Link>
+                <Link to="/wishlist">
+                  위시리스트 {wishlistCount > 0 && `(${wishlistCount})`}
                 </Link>
                 <Link to="/payment/test" style={{ color: '#28a745', fontWeight: 'bold' }}>
                   🧪 결제 테스트

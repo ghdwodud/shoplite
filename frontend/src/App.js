@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './App.css';
+import Cart from './components/Cart';
 import Header from './components/Header';
-import ProductList from './components/ProductList';
+import Login from './components/Login';
+import OrderManagement from './components/OrderManagement';
+import Orders from './components/Orders';
+import Payment from './components/Payment';
+import PaymentFail from './components/PaymentFail';
+import PaymentSuccess from './components/PaymentSuccess';
+import PaymentTest from './components/PaymentTest';
 import ProductDetail from './components/ProductDetail';
 import ProductForm from './components/ProductForm';
-import Login from './components/Login';
+import ProductList from './components/ProductList';
 import Signup from './components/Signup';
-import Cart from './components/Cart';
-import Payment from './components/Payment';
-import PaymentSuccess from './components/PaymentSuccess';
-import PaymentFail from './components/PaymentFail';
-import PaymentTest from './components/PaymentTest';
-import Orders from './components/Orders';
-import OrderManagement from './components/OrderManagement';
+import Wishlist from './components/Wishlist';
 import AuthService from './services/AuthService';
-import './App.css';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -58,6 +59,7 @@ function App() {
             <Route path="/payment/success" element={<PaymentSuccess user={user} />} />
             <Route path="/payment/fail" element={<PaymentFail />} />
             <Route path="/orders" element={<Orders user={user} />} />
+            <Route path="/wishlist" element={<Wishlist user={user} />} />
             {user && user.role === 'ADMIN' && (
               <>
                 <Route path="/add" element={<ProductForm />} />

@@ -34,3 +34,4 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
     List<Object[]> findPopularProducts();
 }
 
+

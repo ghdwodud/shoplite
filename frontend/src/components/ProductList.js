@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import ProductService from '../services/ProductService';
 import CartService from '../services/CartService';
+import ProductService from '../services/ProductService';
 import ProductSearch from './ProductSearch';
 import StarRating from './StarRating';
+import WishlistButton from './WishlistButton';
 
 const ProductList = ({ user }) => {
   const [products, setProducts] = useState([]);
@@ -119,13 +120,19 @@ const ProductList = ({ user }) => {
         <div className="product-grid">
           {products.map(product => (
             <div key={product.id} className="product-card">
-              {product.imageUrl && (
-                <img 
-                  src={product.imageUrl} 
-                  alt={product.name}
-                  className="product-image"
+              <div className="product-image-container">
+                {product.imageUrl && (
+                  <img 
+                    src={product.imageUrl} 
+                    alt={product.name}
+                    className="product-image"
+                  />
+                )}
+                <WishlistButton
+                  user={user}
+                  productId={product.id}
                 />
-              )}
+              </div>
               <div className="product-info">
                 <Link to={`/product/${product.id}`} className="product-name-link">
                   <h3 className="product-name">{product.name}</h3>
